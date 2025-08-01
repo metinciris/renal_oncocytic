@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical Approach to Diagnosis of Oncocytic Renal Tumors</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #6f42c1;
+            --secondary-color: #8a5fd4;
+            --accent-color: #a47de8;
+            --light-color: #f5f7ff;
+            --dark-color: #212529;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+            z-index: 0;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Navigation Tabs */
+        .nav-tabs {
+            border-bottom: 2px solid var(--accent-color);
+            margin-top: 2rem;
+            overflow-x: auto;
+            white-space: nowrap;
+            flex-wrap: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
+        
+        .nav-tabs::-webkit-scrollbar {
+            height: 5px;
+        }
+        
+        .nav-tabs::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .nav-tabs::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 5px;
+        }
+        
+        .nav-tabs .nav-link {
+            color: var(--primary-color);
+            font-weight: 500;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            margin-right: 0.5rem;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            background-color: rgba(111, 66, 193, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .nav-tabs .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .nav-tabs .nav-link i {
+            margin-right: 0.5rem;
+        }
+        
+        /* Tab Content */
+        .tab-content {
+            padding: 2rem 0;
+        }
+        
+        .tab-pane {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Algorithm Flow Styles */
+        .algorithm-flow {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .flow-box {
+            width: 100%;
+            max-width: 800px;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem 0;
+            border-left: 6px solid var(--primary-color);
+            border-radius: 10px;
+            background: var(--light-color);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+            text-align: left;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .flow-box:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .flow-arrow {
+            font-size: 2.5rem;
+            margin: 1rem 0;
+            color: var(--primary-color);
+            text-align: center;
+        }
+        
+        .decision {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--danger-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .outcome {
+            margin-top: 0.8rem;
+            padding-left: 1.5rem;
+            border-left: 4px solid var(--accent-color);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        
+        .outcome .positive {
+            color: var(--success-color);
+            font-weight: 500;
+        }
+        
+        /* Table Styles with Fixed Column */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+        
+        .table {
+            margin-bottom: 0;
+            white-space: nowrap;
+        }
+        
+        .table thead th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+            border: none;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 2;
+        }
+        
+        .table thead th:first-child,
+        .table tbody td:first-child {
+            position: sticky;
+            left: 0;
+            background-color: var(--primary-color);
+            color: white;
+            z-index: 3;
+            min-width: 200px;
+        }
+        
+        .table tbody td:first-child {
+            background-color: white;
+            color: var(--dark-color);
+        }
+        
+        .table tbody tr:nth-of-type(odd) {
+            background-color: rgba(111, 66, 193, 0.05);
+        }
+        
+        .table tbody tr:hover {
+            background-color: rgba(111, 66, 193, 0.1);
+        }
+        
+        .table td, .table th {
+            padding: 0.8rem;
+            border: none;
+        }
+        
+        /* Card Styles */
+        .info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .info-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .info-card ul {
+            padding-left: 1.2rem;
+        }
+        
+        .info-card li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav {
+            display: none;
+            background-color: var(--primary-color);
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .mobile-nav select {
+            width: 100%;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: white;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+            
+            .nav-tabs {
+                display: none;
+            }
+            
+            .mobile-nav {
+                display: block;
+            }
+            
+            .flow-box {
+                font-size: 0.9rem;
+                padding: 1rem;
+            }
+            
+            .table-container {
+                font-size: 0.8rem;
+            }
+            
+            .table thead th:first-child,
+            .table tbody td:first-child {
+                min-width: 150px;
+            }
+            
+            .table th, .table td {
+                padding: 0.5rem;
+            }
+        }
+        
+        /* Interactive Elements */
+        .highlight {
+            background-color: rgba(255, 193, 7, 0.2);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: var(--accent-color);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tooltip-custom {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dashed var(--primary-color);
+        }
+        
+        .tooltip-custom::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--dark-color);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 10;
+            font-size: 0.8rem;
+        }
+        
+        .tooltip-custom:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 data-aos="fade-down">Practical Approach to Diagnosis of Oncocytic Renal Tumors</h1>
+            <p data-aos="fade-up" data-aos-delay="200">Interactive algorithm and content for modern medical education</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav">
+            <select id="mobile-tab-select" class="form-select">
+                <option value="overview" selected>Overview</option>
+                <option value="algorithm">Diagnostic Algorithm</option>
+                <option value="kit-distribution">KIT Distribution</option>
+                <option value="ihc">IHC Table</option>
+                <option value="morphology">Morphology</option>
+                <option value="practical">Practical Approach</option>
+            </select>
+        </div>
+        
+        <!-- Desktop Navigation -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" data-bs-target="#overview" type="button" role="tab">
+                    <i class="fas fa-info-circle"></i> Overview
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="algorithm-tab" data-bs-toggle="tab" data-bs-target="#algorithm" type="button" role="tab">
+                    <i class="fas fa-sitemap"></i> Diagnostic Algorithm
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="kit-distribution-tab" data-bs-toggle="tab" data-bs-target="#kit-distribution" type="button" role="tab">
+                    <i class="fas fa-chart-pie"></i> KIT Distribution
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="ihc-tab" data-bs-toggle="tab" data-bs-target="#ihc" type="button" role="tab">
+                    <i class="fas fa-table"></i> IHC Table
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="morphology-tab" data-bs-toggle="tab" data-bs-target="#morphology" type="button" role="tab">
+                    <i class="fas fa-microscope"></i> Morphology
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="practical-tab" data-bs-toggle="tab" data-bs-target="#practical" type="button" role="tab">
+                    <i class="fas fa-user-md"></i> Practical Approach
+                </button>
+            </li>
+        </ul>
+        
+        <div class="tab-content" id="myTabContent">
+            <!-- Overview Tab -->
+            <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                <div class="info-card" data-aos="fade-up">
+                    <h2>Overview of Oncocytic Renal Tumors</h2>
+                    <p>These tumors include <span class="highlight">Oncocytoma</span>, <span class="highlight">Chromophobe RCC</span>, <span class="highlight">Eosinophilic Variant of Chromophobe RCC</span>, <span class="highlight">Low-Grade Oncocytic Tumor (LOT)</span>, <span class="highlight">Succinate Dehydrogenase Deficient RCC</span>, <span class="highlight">Fumarate Hydratase Deficient RCC</span>, and others. Diagnosis relies on morphology first, IHC often required, low threshold for molecular testing/expert consultation.</p>
+                </div>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li>Clusters of eosinophilic cells in background of edematous connective tissue (<span class="tooltip-custom" data-tooltip="Also known as 'archipelago pattern'">"archipelago"</span>).</li>
+                        <li>Diffuse/sheets, acini, cystic/microcystic patterns might be present.</li>
+                        <li>Majority of nuclei have regular nuclear membrane, may have prominent nucleoli.</li>
+                        <li>No brisk mitotic activity, coagulative necrosis, overt high-grade atypia.</li>
+                        <li>Degenerative cytologic changes may be present.</li>
+                        <li>Definitive diagnosis depends on resources & expertise.</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Tumor Types</h3>
+                    <div class="d-flex flex-wrap">
+                        <span class="tag">Oncocytoma</span>
+                        <span class="tag">Chromophobe RCC</span>
+                        <span class="tag">Eosinophilic Variant</span>
+                        <span class="tag">Low-Grade Oncocytic Tumor</span>
+                        <span class="tag">SDH Deficient RCC</span>
+                        <span class="tag">FH Deficient RCC</span>
+                        <span class="tag">BHD-associated Hybrid Tumors</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Algorithm Tab -->
+            <div class="tab-pane fade" id="algorithm" role="tabpanel">
+                <h2 class="mt-4" data-aos="fade-up">Diagnostic Algorithm</h2>
+                <p data-aos="fade-up" data-aos-delay="100">Structured flow for diagnosing oncocytic renal tumors based on morphology.</p>
+                
+                <div class="algorithm-flow" data-aos="fade-up" data-aos-delay="200">
+                    <div class="section-title">Morphological Evaluation</div>
+                    
+                    <div class="flow-box" data-aos="fade-right">
+                        <strong class="decision">Start: Is the tumor oncocytic?</strong> 
+                        <div class="outcome">
+                            <span class="positive">Yes</span> → Proceed to evaluate high-grade features.
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow" data-aos="fade-in">↓ (If confirmed oncocytic)</div>
+                    
+                    <div class="flow-box" data-aos="fade-right" data-aos-delay="100">
+                        <strong class="decision">Are high-grade features present?</strong> 
+                        <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
+                            (Increased cytologic atypia, infiltrative growth, desmoplasia, coagulative necrosis, prominent mitotic activity)
+                        </div>
+                        <div class="outcome">
+                            <span class="positive">Yes</span> → Possible diagnoses: Clear cell RCC, Epithelioid AML/PEComa, Fumarate hydratase deficient RCC, TFEB amplified RCC, ALK rearranged RCC, SMARCB1 deficient RMC, Papillary RCC with oncocytic features, Solid papillary RCC.
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow" data-aos="fade-in">↓ (If no high-grade features)</div>
+                    
+                    <div class="flow-box" data-aos="fade-right" data-aos-delay="200">
+                        <strong class="decision">Is papilla formation observed?</strong> 
+                        <div class="outcome">
+                            <span class="positive">Yes</span> → Possible diagnoses: Papillary RCC with oncocytic features, Papillary neoplasm with reverse polarity.
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow" data-aos="fade-in">↓ (If no papilla formation)</div>
+                    
+                    <div class="flow-box" data-aos="fade-right" data-aos-delay="300">
+                        <strong class="decision">Does the tumor exhibit low nuclear grade?</strong> 
+                        <div class="outcome">
+                            Possible diagnoses: Oncocytoma, Eosinophilic chromophobe RCC, Low grade oncocytic tumor (LOT), Low grade FH-def RCC, SDH-def RCC, BHD-associated hybrid tumors, Oncocytic renal neoplasm of low malignant potential.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- KIT Distribution Tab -->
+            <div class="tab-pane fade" id="kit-distribution" role="tabpanel">
+                <h2 class="mt-4" data-aos="fade-up">KIT Distribution for IHC</h2>
+                <p data-aos="fade-up" data-aos-delay="100">Distribution based on KIT and KRT7 status.</p>
+                
+                <div class="table-container" data-aos="fade-up" data-aos-delay="200">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>KIT Positive</th>
+                                <th>KIT Negative</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    Oncocytoma (KRT7 rarely positive)<br>
+                                    Chromophobe RCC (KRT7 mostly positive)<br>
+                                    EVT (CathepsinK, CD10, GPNMB+)
+                                </td>
+                                <td>
+                                    LOT (KRT7+, GATA3+)<br>
+                                    ESC RCC (KRT20+, GPNMB+)<br>
+                                    SDH RCC (GATA3+, KRT7-, SDHB loss)<br>
+                                    PRNRP (KRT7+, GATA3+)
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Key Points</h3>
+                    <ul>
+                        <li>KIT positivity is strongly associated with oncocytoma and chromophobe RCC</li>
+                        <li>KIT negative tumors require additional IHC markers for classification</li>
+                        <li>GATA3 is a useful marker for KIT negative tumors</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- IHC Table Tab -->
+            <div class="tab-pane fade" id="ihc" role="tabpanel">
+                <h2 class="mt-4" data-aos="fade-up">IHC Profile Table</h2>
+                <p data-aos="fade-up" data-aos-delay="100">Comprehensive immunohistochemical profile of renal oncocytic tumors.</p>
+                
+                <div class="table-container" data-aos="fade-up" data-aos-delay="200">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Tumor Type</th>
+                                <th>KRT7</th>
+                                <th>KIT</th>
+                                <th>CA9</th>
+                                <th>Cathepsin K</th>
+                                <th>SDHB</th>
+                                <th>KRT20</th>
+                                <th>GATA3</th>
+                                <th>L1CAM</th>
+                                <th>FH</th>
+                                <th>2SC</th>
+                                <th>GPNMB</th>
+                                <th>TTF1</th>
+                                <th>CyclinD1</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Oncocytoma</td>
+                                <td>Rare +</td>
+                                <td>+++</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>±</td>
+                            </tr>
+                            <tr>
+                                <td>Chromophobe RCC, eosinophilic</td>
+                                <td>++</td>
+                                <td>+++</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>/+</td>
+                                <td>-</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Low-grade Eosinophilic Tumor</td>
+                                <td>+++</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>+++</td>
+                                <td>+++</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>+++</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Eosinophilic Vacuolated Tumor</td>
+                                <td>/+</td>
+                                <td>++</td>
+                                <td>++</td>
+                                <td>+</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>ND</td>
+                                <td>ND</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>++</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Eosinophilic Solid and Cystic RCC</td>
+                                <td>/+</td>
+                                <td>/+</td>
+                                <td>-</td>
+                                <td>/+</td>
+                                <td>Retained</td>
+                                <td>++</td>
+                                <td>ND</td>
+                                <td>ND</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>++</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Hybrid Tumors (BHD patients)</td>
+                                <td>Variable</td>
+                                <td>Variable</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>Variable</td>
+                                <td>Variable</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Succinate Dehydrogenase Deficient Renal Cell Carcinoma</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>Loss</td>
+                                <td>-</td>
+                                <td>+++</td>
+                                <td>+++</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Fumarate Hydratase Deficient Renal Cell Carcinoma, Low-Grade</td>
+                                <td>/+</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>±</td>
+                                <td>ND</td>
+                                <td>Loss</td>
+                                <td>Over Expressed</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Thyroid Follicular Like Renal Cell Carcinoma</td>
+                                <td>+++</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>ND</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>ND</td>
+                                <td>ND</td>
+                                <td>Retained</td>
+                                <td>-</td>
+                                <td>ND</td>
+                                <td>-</td>
+                                <td>+++</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Marker Interpretation</h3>
+                    <ul>
+                        <li><strong>+++:</strong> Strong/diffuse positivity</li>
+                        <li><strong>++:</strong> Moderate positivity</li>
+                        <li><strong>+/±:</strong> Weak/focal positivity</li>
+                        <li><strong>-:</strong> Negative</li>
+                        <li><strong>ND:</strong> Not determined</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Morphology Tab -->
+            <div class="tab-pane fade" id="morphology" role="tabpanel">
+                <h2 class="mt-4" data-aos="fade-up">Morphology and Key Features</h2>
+                <p data-aos="fade-up" data-aos-delay="100">Descriptions and features of oncocytic renal tumors.</p>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Renal Oncocytoma</h3>
+                    <p>Clusters of eosinophilic cells, archipelago pattern, focal pleomorphism, pseudoinclusion, clumped nuclei, bland round nuclei, nucleoli common, cellular membranes not distinct. Degenerative changes may be present. No brisk mitosis, coagulative necrosis, high-grade atypia.</p>
+                    <p>Degenerative cytologic changes may be present (as long as it is within acceptable limits). Tumor cells entrapped in fibrous stroma (usually in the central scar) can have bizarre morphology.</p>
+                </div>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Low-Grade Oncocytic Tumor (LOT)</h3>
+                    <p>KRT7 diffuse positive/KIT negative, GATA3 almost always positive (chromophobe RCC and some other tumors in the DDx can also be positive). L1CAM similar to GATA3 with similar precautions.</p>
+                </div>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="400">
+                    <h3>Succinate Dehydrogenase Deficient RCC</h3>
+                    <p>GATA3 (almost always) and L1CAM (frequently) expressed. Succinate dehydrogenase deficient renal cell carcinoma frequently expresses GATA3 and L1CAM.</p>
+                </div>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="500">
+                    <h3>Eosinophilic Tumor Diagnostics</h3>
+                    <p>Morphology first, IHC often required, low threshold for molecular testing/expert consultation.</p>
+                    
+                    <h4>Recognizable Morphologic Features</h4>
+                    <ul>
+                        <li>Oncocytoma: KIT Positive, KRT7 (rare)</li>
+                        <li>Chromophobe RCC: KIT Positive, KRT7 (mostly +)</li>
+                        <li>EVT: KIT Positive, Cathepsin K, CD10, (GPNMB) POS</li>
+                        <li>LOT: KIT Negative, KRT7, GATA3 POS</li>
+                        <li>ESC RCC: KIT Negative, KRT20, (GPNMB) POS</li>
+                        <li>SDH RCC: KIT Negative, GATA3+, KRT7-, SDHB (L)</li>
+                        <li>PRNRP: KIT Negative, KRT7, GATA3 POS</li>
+                    </ul>
+                    
+                    <h4>Unusual Morphologic Features</h4>
+                    <p>Common things = common: 1. Clear Cell RCC? (CA9) 2. Take more sections if applicable 3. Morphologic "variant" of a common subtype (PRCC, ChRCC...)</p>
+                    <p>Unusual morphology, no common entity (usually KRT7/KIT dual negative): 1- Rosettes, basophilic stippling, pigment, calx? 2- High grade features? Consider molecularly defined RCC or epithelioid AML?</p>
+                </div>
+            </div>
+            
+            <!-- Practical Approach Tab -->
+            <div class="tab-pane fade" id="practical" role="tabpanel">
+                <h2 class="mt-4" data-aos="fade-up">Practical Approach in Diagnosis</h2>
+                <p data-aos="fade-up" data-aos-delay="100">Practical approach to diagnosis of oncocytic tumors in the kidney. Anticipated outcomes in oncocytic tumors.</p>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>Diagnostic Pathway</h3>
+                    <ul>
+                        <li>Oncocytic Tumor → Morphologic Eval</li>
+                        <li>High-Grade Features Present? → Yes: Clear Cell RCC, Epithelioid Angiomyolipoma, Fumarate Hydratase Deficient RCC, TFEB Amplified RCC, ALK Rearranged RCC, SMARCB1 Deficient RMC, Papillary RCC with Oncocytic Features, Solid Papillary RCC</li>
+                        <li>No → Papilla Formation? → Yes: Papillary Renal Neoplasm with Reverse Polarity, Papillary RCC with Oncocytic Features</li>
+                        <li>No → Low Nuclear Grade → Low Data: Oncocytoma, Eosinophilic Chromophobe RCC, Succinate Dehydrogenase RCC, Low Grade Fumarate Hydratase RCC, Hybrid Oncocytic Tumors (BHD patients), Oncocytic Renal Neoplasm of LMP</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3>Challenges</h3>
+                    <ul>
+                        <li>Tumors with overlapping features and different outcomes</li>
+                        <li>Under-documented experience</li>
+                        <li>Rare tumors/lack of resources to define tumors</li>
+                        <li>Unknown spectrum of morphology</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card" data-aos="fade-up" data-aos-delay="400">
+                    <h3>Limited Resource Setting</h3>
+                    <p>Can you make a Dx in limited resource setting?</p>
+                    
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Tumor Type</th>
+                                    <th>IHC Markers</th>
+                                    <th>Biopsy Dx</th>
+                                    <th>Resection Dx</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Oncocytoma</td>
+                                    <td>KIT++/KRT7(rare)</td>
+                                    <td>Probably</td>
+                                    <td>Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Eosinophilic Chromophobe Tumor</td>
+                                    <td>KIT++/KRT7++/GATA3+</td>
+                                    <td>Probably</td>
+                                    <td>Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Succinate Dehydrogenase RCC</td>
+                                    <td>KIT-/KRT7-/SDHB loss</td>
+                                    <td>No</td>
+                                    <td>Lack IHC</td>
+                                </tr>
+                                <tr>
+                                    <td>Low Grade Fumarate Hydratase RCC</td>
+                                    <td>KIT-/KRT7-/FH loss/2SC+</td>
+                                    <td>No</td>
+                                    <td>Lack IHC</td>
+                                </tr>
+                                <tr>
+                                    <td>Hybrid Oncocytic Tumors (BHD patients)</td>
+                                    <td>Clinical History</td>
+                                    <td>No</td>
+                                    <td>No/Lack XP</td>
+                                </tr>
+                                <tr>
+                                    <td>Oncocytic Renal Neoplasm of LMP</td>
+                                    <td>Dx of Exclusion</td>
+                                    <td>No</td>
+                                    <td>No</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <p class="mt-3">Most Labs/Depts Lack SDHB FH 2SC CATHK. Low Nuclear Grade Confidence (=Experience) No: Chromophobe RCC KIT++/KRT7++, Eosinophilic Vacuolated Tumor KIT+/KRT7-/CATHK+, Eosinophilic Solid and Cystic RCC KIT+/KRT7+/KRT20+, Biphasic Papillary and Alveolar RCC KRT7++/AMACR++/KIT-/CYCD1+, Clear Cell RCC CA9++/KRT7-/KIT- . Biopsy/Resection: Varies from Yes to Lack XP.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; "Dr. Mahmut Akgül's presentation on 'EOSINOPHILIC TUMORS OF THE KIDNEY' was utilized." | Educational Resource 2025</p>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+        
+        // Mobile navigation functionality
+        document.getElementById('mobile-tab-select').addEventListener('change', function() {
+            const targetTab = this.value;
+            const tabElement = document.querySelector(`#${targetTab}-tab`);
+            const tab = new bootstrap.Tab(tabElement);
+            tab.show();
+        });
+        
+        // Update mobile select when tab changes
+        document.querySelectorAll('button[data-bs-toggle="tab"]').forEach(tab => {
+            tab.addEventListener('shown.bs.tab', function (e) {
+                const targetId = e.target.getAttribute('data-bs-target').substring(1);
+                document.getElementById('mobile-tab-select').value = targetId;
+            });
+        });
+        
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
